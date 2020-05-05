@@ -18,13 +18,18 @@ const Route = use('Route')
 
 Route.post('/users', 'UserController.store')
 Route.post('/sessions', 'SessionController.store')
-Route.get('/companies/:id', 'CompanyController.show')
+Route.get('/web/:id_company/:id', 'CompanyController.show')
+Route.get('/files/:id', 'FileController.show')
+Route.get('/products/:id_web', 'ProductController.index')
+Route.get('/product/:id', 'ProductController.show')
+
 
 Route.group(() => {
+  Route.post('/files', 'FileController.store')
   Route.get('/companies', 'CompanyController.index')
   Route.post('/companies', 'CompanyController.store')
   Route.put('/companies/:id', 'CompanyController.update')
 
-  Route.resource('companies.website', 'WebsiteController').apiOnly()
-  Route.resource('web.product', 'ProductController')
+  Route.resource('companies.web', 'WebsiteController').apiOnly().except(['show'])
+  Route.resource('web.product', 'ProductController').apiOnly().except(['index','show'])
 }).middleware('auth')

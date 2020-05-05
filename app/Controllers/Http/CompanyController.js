@@ -1,6 +1,9 @@
 'use strict'
 
 const Company = use('App/Models/Company')
+const Website = use('App/Models/Website')
+
+
 
 class CompanyController {
 
@@ -20,9 +23,12 @@ class CompanyController {
   }
 
   async show ({ params}) {
-    const company = await Company.findOrFail(params.id)
+    const company = await Company.query('id', params.id_company).fetch()
+    const website = await Website.query('id', params.id).fetch()
 
-    return company
+    const data = {website, company};
+
+    return data;
   }
 
   async update ({ params, auth,response,request }) {

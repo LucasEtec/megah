@@ -1,9 +1,9 @@
 'use strict'
 
-const Product = use('App/Model/Product')
+const Product = use('App/Models/Product')
 class ProductController {
-  async index ({ request, response }) {
-    const product = await Product.query().where('id_website', params.web_id)
+  async index ({ params }) {
+    const product = await Product.query().where('id_website', params.id_web).fetch()
 
     return product
   }
@@ -14,7 +14,8 @@ class ProductController {
       'title',
       'description',
       'price',
-      'shipping'
+      'shipping',
+      'img_url'
     ])
 
     const product = Product.create({...data, id_website: params.web_id})
@@ -22,7 +23,7 @@ class ProductController {
     return product
   }
 
-  async show ({ params, request, response }) {
+  async show ({ params }) {
     const product = Product.findOrFail(params.id)
     return product
   }
@@ -34,7 +35,8 @@ class ProductController {
       'title',
       'description',
       'price',
-      'shipping'
+      'shipping',
+      'img_url'
     ])
 
     product.merge(data)

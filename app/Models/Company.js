@@ -8,7 +8,7 @@ class Company extends Model {
     return this.belongsTo('App/Models/User')
   }
   website () {
-    return this.hasMany('App/Models/Website')
+    return this.hasOne('App/Models/Website')
   }
 }
 
